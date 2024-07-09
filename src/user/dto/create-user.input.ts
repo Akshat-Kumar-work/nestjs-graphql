@@ -15,12 +15,8 @@ export class CreateAddressInput {
   postalCode: string;
 }
 
-
-
 @InputType()
 export class CreateUserInput {
-  @Field(() => Int)
-  id: number;
 
   @Field()
   name:string;
