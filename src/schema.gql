@@ -2,18 +2,43 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Address {
+  city: String!
+  postalCode: String!
+  state: String!
+  street: String!
+}
+
+input CreateAddressInput {
+  city: String!
+  postalCode: String!
+  state: String!
+  street: String!
+}
+
 input CreateTodoInput {
   title: String!
 }
 
+input CreateUserInput {
+  address: CreateAddressInput!
+  age: String!
+  name: String!
+}
+
 type Mutation {
   createTodo(createTodoInput: CreateTodoInput!): Todo!
+  createUser(createUserInput: CreateUserInput!): User!
   removeTodo(id: Int!): Todo!
+  removeUser(id: Int!): User!
   updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+  updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
   todo(id: Int!): Todo!
+  user(id: Int!): User!
+  users: [User!]!
 }
 
 type Todo {
@@ -21,7 +46,28 @@ type Todo {
   title: String!
 }
 
+input UpdateAddressInput {
+  city: String
+  postalCode: String
+  state: String
+  street: String
+}
+
 input UpdateTodoInput {
   id: Int!
   title: String!
+}
+
+input UpdateUserInput {
+  address: UpdateAddressInput
+  age: String
+  id: Int!
+  name: String
+}
+
+type User {
+  address: Address!
+  age: String!
+  id: Int!
+  name: String!
 }
