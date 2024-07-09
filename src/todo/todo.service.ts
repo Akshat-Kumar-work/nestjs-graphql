@@ -1,26 +1,48 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodoInput } from './dto/create-todo.input';
 import { UpdateTodoInput } from './dto/update-todo.input';
+import { DbService } from 'src/db/db.service';
 
 @Injectable()
 export class TodoService {
-  create(createTodoInput: CreateTodoInput) {
-    return 'This action adds a new todo';
+  constructor( private prisma:DbService){};
+
+ async create(createTodoInput: CreateTodoInput) {
+    return await this.prisma.todo.create({
+      data:{
+        title:createTodoInput.title
+      }
+    })
   }
 
-  findAll() {
-    return `This action returns all todo`;
+ async findAll() {
+    return await this.prisma.todo.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+async  findOne(id: number) {
+    return await this.prisma.todo.findUnique({
+      where:{
+        id:id
+      }
+    })
   }
 
-  update(id: number, updateTodoInput: UpdateTodoInput) {
-    return `This action updates a #${id} todo`;
+ async update(id: number, updateTodoInput: UpdateTodoInput) {
+    return await this.prisma.todo.update({
+      where:{
+        id:id
+      },
+      data:{
+        title:updateTodoInput.title
+      }
+    })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} todo`;
+async  remove(id: number) {
+    return await this.prisma.todo.delete({
+      where:{
+        id:id
+      }
+    })
   }
 }
