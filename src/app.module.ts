@@ -3,12 +3,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TodoModule } from './todo/todo.module';
+import { DbService } from './db/db.service';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
     driver: ApolloDriver,
     autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     sortSchema:true,
-  }), TodoModule ] 
+  }), TodoModule ],
+  providers: [DbService] 
 })
 export class AppModule {}
